@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        
+<mapper namespace="mx.capacitarte.rycmvcweb2.persistence.mapper.ProductosMapper">
+
+	<resultMap id="consultarProductosResultMap" type="mx.capacitarte.rycmvcweb2.VO.ProductoVO" >
+		<result property="idProducto" column="ID_PRODUCTO" />
+        <result property="descProducto" column="DESC_PRODUCTO" />
+        <result property="idCategoria" column="ID_CATEGORIA" />
+        <result property="descCategoria" column="DESC_CATEGORIA" />
+        <result property="idTipoUnidad" column="ID_TIPO_UNIDAD" />
+        <result property="descTipoUnidad" column="DESC_TIPO_UNIDAD" />
+        <result property="codigoBarra" column="CODIGO_BARRA" />
+	</resultMap>
+	
+	
+<select id="consultarProducto" resultMap="consultarProductosResultMap">
+		
+				SELECT
+                FTN_ID_PRODUCTO AS ID_PRODUCTO,
+                FTC_DESC_PRODUCTO AS DESC_PRODUCTO,
+		        FTN_ID_CATEGORIA AS ID_CATEGORIA,
+		        FTC_DESC_CATEGORIA AS DESC_CATEGORIA,
+		        FTN_ID_TIPO_UNIDAD AS ID_TIPO_UNIDAD,
+		        FTC_DESC_TIPO_UNIDAD AS DESC_TIPO_UNIDAD,
+		        FTC_CODIGO_BARRA AS CODIGO_BARRA
+		        FROM PRODUCTOS ORDER BY FTN_ID_PRODUCTO 
+		        
+		
+</select>
+	
+	
+	<select id="consultarIdGenerado" resultType="int">
+		       
+		        SELECT MAX (FTN_ID_ALUMNO) AS ID_MAXIMO FROM ALUMNO
+	
+	</select>
+	
+	<insert id="agregarProducto">
+	
+	INSERT 
+	INTO PRODUCTOS
+	(FTN_ID_PRODUCTO, 
+	 FTC_DESC_PRODUCTO,
+	 FTN_ID_CATEGORIA, 
+	 FTC_DESC_CATEGORIA, 
+	 FTN_ID_TIPO_UNIDAD, 
+	 FTC_DESC_TIPO_UNIDAD, 
+	 FTC_CODIGO_BARRA, 
+	 FCB_VIGENCIA, 
+	 FCD_FEH_CRE, 
+	 FCC_USU_CRE) 
+    VALUES
+    (#{idProducto}, 
+    #{descProducto}, 
+    #{idCategoria}, 
+    #{descCategoria}, 
+    #{idTipoUnidad}, 
+    #{descTipoUnidad}, 
+    #{codigoBarra},
+    1, 
+    SYSTIMESTAMP, 
+    'SYS')
+	
+	</insert>
+	
+	<delete id="eliminarProducto">
+	DELETE FROM PRODUCTOS WHERE FTN_ID_PRODUCTO = #{idProducto}
+	
+	</delete>
+	
+	<update id="actualizarProducto">
+
+UPDATE PRODUCTOS 
+    SET FTC_DESC_PRODUCTO = #{descProducto},
+        FTC_CODIGO_BARRA = #{codigoBarra},
+        FCB_VIGENCIA = 0,
+        FCD_FEH_ACT = SYSTIMESTAMP,
+        FCC_USU_ACT = 'F'
+        WHERE FTN_ID_PRODUCTO = #{idProducto}
+	
+	</update>
+	
+	<select id="consultarPorNombreYId" resultMap="consultarProductosResultMap">
+	 
+	 			SELECT
+                FTN_ID_PRODUCTO AS ID_PRODUCTO,
+                FTC_DESC_PRODUCTO AS DESC_PRODUCTO,
+		        FTN_ID_CATEGORIA AS ID_CATEGORIA,
+		        FTC_DESC_CATEGORIA AS DESC_CATEGORIA,
+		        FTN_ID_TIPO_UNIDAD AS ID_TIPO_UNIDAD,
+		        FTC_DESC_TIPO_UNIDAD AS DESC_TIPO_UNIDAD,
+		        FTC_CODIGO_BARRA AS CODIGO_BARRA
+		        FROM PRODUCTOS 
+		        WHERE  FTN_ID_PRODUCTO = #{idProducto} OR FTC_DESC_PRODUCTO = #{descProducto}
+	 
+	</select>
+
+</mapper>

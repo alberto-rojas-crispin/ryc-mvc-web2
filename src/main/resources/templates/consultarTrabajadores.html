@@ -1,0 +1,74 @@
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<style>
+.styled-table {
+	border-collapse: collapse;
+	margin: 25px 0;
+	font-size: 0.9em;
+	font-family: sans-serif;
+	min-width: 400px;
+	box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+.styled-table thead tr {
+	background-color: #009879;
+	color: #ffffff;
+	text-align: left;
+}
+
+.styled-table th, .styled-table td {
+	padding: 12px 15px;
+}
+
+.styled-table tbody tr {
+	border-bottom: 1px solid #dddddd;
+}
+
+.styled-table tbody tr:nth-of-type(even) {
+	background-color: #f3f3f3;
+}
+
+.styled-table tbody tr:last-of-type {
+	border-bottom: 2px solid #009879;
+}
+
+.styled-table tbody tr.active-row {
+	font-weight: bold;
+	color: #009879;
+}
+</style>
+</head>
+<body>
+
+	<table class="styled-table">Datos de empleado
+		<thead>
+			<tr> 
+				<th>Numero Id</th>
+				<th>Nombre</th>
+				<th>Apellidos</th>
+				<th>Fecha de ingreso</th>
+				<th>Dias trabajados</th>
+				<th>Salario total</th>
+				<th>Estatus </th>
+				<th>Usuario registro</th>
+				
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="trabajador: ${trabajadores}">
+				<td th:text=" ${trabajador.numeroEmpleado}" />
+				<td th:text=" ${trabajador.nombreEmpleado}" />
+				<td th:text=" ${trabajador.apellidosEmpleado}" />
+				<td th:text=" ${trabajador.fechaIngreso}" />
+				<td th:text=" ${trabajador.diasTrabajados}" />
+				<td th:text=" ${trabajador.salarioTotal}" />
+				<td th:text=" ${trabajador.estatusEmpleado}" />
+				<td th:text=" ${trabajador.usuarioRegistro}" />
+			</tr>
+
+		</tbody>
+
+	</table>
+</body>
+</html>

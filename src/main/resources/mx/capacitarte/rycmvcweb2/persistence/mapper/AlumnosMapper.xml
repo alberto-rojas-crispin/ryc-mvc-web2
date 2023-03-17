@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        
+<mapper namespace="mx.capacitarte.rycmvcweb2.persistence.mapper.AlumnosMapper">
+
+	<resultMap id="consultarAlumnosResultMap" type="mx.capacitarte.rycmvcweb2.VO.AlumnoVO" >
+		<result property="id" column="ID" />
+        <result property="nombre" column="NOMBRE" />
+        <result property="apellido" column="APELLIDO" />
+        <result property="fechaRegistro" column="FECHA" />
+	</resultMap>
+
+	<select id="consultarAlumnos" resultMap="consultarAlumnosResultMap">
+		
+        
+                SELECT 
+                FTN_ID_ALUMNO AS ID,
+       			FTC_NOMBRE_ALUMNO AS NOMBRE,
+        		FTC_APELLIDO_ALUMNO AS APELLIDO,
+        		FCD_FEH_CRE AS FECHA 
+                FROM ALUMNO 
+                ORDER BY FTC_APELLIDO_ALUMNO
+        
+	</select>
+	
+	
+	
+	<insert id="agregarAlumno">
+				
+				INSERT INTO ALUMNO 
+				(FTN_ID_ALUMNO, FTC_NOMBRE_ALUMNO, FTC_APELLIDO_ALUMNO, FCB_VIGENCIA,  FCD_FEH_CRE, FCC_USU_CRE) 
+				VALUES 
+				(ALUMNO_SEQ.NextVal, #{nombre} , #{apellido}, '1', SYSTIMESTAMP, 'SYS')
+				
+	</insert>
+	
+	<select id="consultarIdGenerado" resultType="int">
+		       
+		        SELECT MAX (FTN_ID_ALUMNO) AS ID_MAXIMO FROM ALUMNO
+	
+	</select>
+	
+	<delete id="eliminarAlumno">
+	
+	       DELETE FROM ALUMNO WHERE FTN_ID_ALUMNO=#{id}
+	</delete>
+
+</mapper>

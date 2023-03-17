@@ -1,0 +1,72 @@
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<style>
+.styled-table {
+	border-collapse: collapse;
+	margin: 25px 0;
+	font-size: 0.9em;
+	font-family: sans-serif;
+	min-width: 400px;
+	box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+.styled-table thead tr {
+	background-color: #009879;
+	color: #ffffff;
+	text-align: left;
+}
+
+.styled-table th, .styled-table td {
+	padding: 12px 15px;
+}
+
+.styled-table tbody tr {
+	border-bottom: 1px solid #dddddd;
+}
+
+.styled-table tbody tr:nth-of-type(even) {
+	background-color: #f3f3f3;
+}
+
+.styled-table tbody tr:last-of-type {
+	border-bottom: 2px solid #009879;
+}
+
+.styled-table tbody tr.active-row {
+	font-weight: bold;
+	color: #009879;
+}
+</style>
+</head>
+<body>
+
+	<table class="styled-table">
+		<thead>
+			<tr>
+				<th>Id Producto</th>
+				<th>Descripcion de producto</th>
+				<th>Id Categoria</th>
+				<th>Descripcion de categoria</th>
+				<th>Id Tipo</th>
+				<th>Descripcion de tipo unidad</th>
+				<th>Codigo de barras</th>
+				
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="producto: ${productos}">
+				<td th:text=" ${producto.idProducto}" />
+				<td th:text=" ${producto.descProducto}" />
+				<td th:text=" ${producto.idCategoria}" />
+				<td th:text=" ${producto.descCategoria}" />
+				<td th:text=" ${producto.idTipoUnidad}" />
+				<td th:text=" ${producto.descTipoUnidad}" />
+				<td th:text=" ${producto.codigoBarra}" />
+			</tr>
+
+		</tbody>
+
+	</table>
+</body>
+</html>

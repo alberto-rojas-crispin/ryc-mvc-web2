@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        
+<mapper namespace="mx.capacitarte.rycmvcweb2.persistence.mapper.TrabajadoresMapper">
+
+	<resultMap id="consultarTrabajadoresResultMap" type="mx.capacitarte.rycmvcweb2.VO.TrabajadorVO" >
+		<result property="numeroEmpleado" column="NUMERO" />
+        <result property="nombreEmpleado" column="NOMBRE" />
+        <result property="apellidosEmpleado" column="APELLIDO" />
+        <result property="fechaIngreso" column="FECHA" />
+        <result property="diasTrabajados" column="DIAS_TRABAJADOS" />
+        <result property="salarioTotal" column="SALARIO_TOTAL" />
+        <result property="estatusEmpleado" column="ESTATUS" />
+        <result property="usuarioRegistro" column="USUARIO_REGISTRO" />
+        
+	</resultMap>
+
+	<select id="consultarTrabajadores" resultMap="consultarTrabajadoresResultMap">
+		
+        
+                
+                
+                SELECT
+                FTN_NUMERO_EMPLEADO AS NUMERO,
+		        FTC_NOMBRE_EMPLEADO AS NOMBRE,
+		        FTC_APELLIDO_EMPLEADO AS APELLIDO,
+		        FCD_FEH_CRE AS FECHA,
+		        FTN_DIAS_TRABAJADOS AS DIAS_TRABAJADOS,
+		        FTN_SALARIO_TOTAL AS SALARIO_TOTAL,
+		        FCB_VIGENCIA AS ESTATUS,
+		        FCC_USU_CRE AS USUARIO_REGISTRO 
+		        FROM TRABAJADORES 
+		        ORDER BY FTN_NUMERO_EMPLEADO
+        
+	</select>
+	
+	<select id="consultaPorTrabajador" resultMap="consultarTrabajadoresResultMap">
+	
+				SELECT
+                FTN_NUMERO_EMPLEADO AS NUMERO,
+		        FTC_NOMBRE_EMPLEADO AS NOMBRE,
+		        FTC_APELLIDO_EMPLEADO AS APELLIDO,
+		        FCD_FEH_CRE AS FECHA,
+		        FTN_DIAS_TRABAJADOS AS DIAS_TRABAJADOS,
+		        FTN_SALARIO_TOTAL AS SALARIO_TOTAL,
+		        FCB_VIGENCIA AS ESTATUS,
+		        FCC_USU_CRE AS USUARIO_REGISTRO 
+		        FROM TRABAJADORES 
+		        WHERE FTN_NUMERO_EMPLEADO = #{numeroEmpleado} AND FTC_NOMBRE_EMPLEADO = #{nombreEmpleado} AND FTC_APELLIDO_EMPLEADO = #{apellidosEmpleado} 
+
+	</select>
+	
+	<insert id="agregarTrabajador">
+		
+		INSERT INTO TRABAJADORES (FTN_NUMERO_EMPLEADO,FTC_NOMBRE_EMPLEADO,FTC_APELLIDO_EMPLEADO,FTN_DIAS_TRABAJADOS,FTN_SALARIO_TOTAL,FCB_VIGENCIA,FCD_FEH_CRE,FCC_USU_CRE) 
+    VALUES
+    (TRABAJADORES_SEQ.NextVal, #{nombreEmpleado}, #{apellidosEmpleado}, #{diasTrabajados}, #{salarioTotal}, #{estatusEmpleado}, SYSTIMESTAMP, #{usuarioRegistro})
+	
+	</insert>
+	
+	<select id="consultarIdGenerado" resultType="int">
+		       
+		        SELECT MAX (FTN_NUMERO_EMPLEADO) AS ID_MAXIMO FROM TRABAJADORES
+	
+	</select>
+	
+	<update id="actualizarTrabajador">
+	
+	
+	UPDATE TRABAJADORES 
+    SET FTC_NOMBRE_EMPLEADO = #{nombreEmpleado}, 
+        FTC_APELLIDO_EMPLEADO = #{apellidosEmpleado}, 
+        FTN_DIAS_TRABAJADOS = #{diasTrabajados},
+        FCB_VIGENCIA = #{estatusEmpleado},
+        FCD_FEH_ACT = SYSTIMESTAMP,
+        FCC_USU_ACT = #{usuarioRegistro}
+        WHERE FTN_NUMERO_EMPLEADO = #{numeroEmpleado} 
+        
+	</update>
+	
+	<delete id="eliminarTrabajador" >
+	
+	DELETE 
+    FROM TRABAJADORES 
+    WHERE FTN_NUMERO_EMPLEADO = #{numeroEmpleado}
+	
+	</delete>
+	
+	
+	
+</mapper>
