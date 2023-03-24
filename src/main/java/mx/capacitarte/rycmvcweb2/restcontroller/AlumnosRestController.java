@@ -29,7 +29,7 @@ public class AlumnosRestController {
 		String[] arrAlumno = strAlumno.split(Pattern.quote("_"));
 			
 		if(arrAlumno.length >= 2) {
-			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yy");
+			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yy"); 
 			AlumnoVO alumnoVO = new AlumnoVO();
 			alumnoVO.setNombre(arrAlumno[0]);
 			alumnoVO.setApellido(arrAlumno[1]);

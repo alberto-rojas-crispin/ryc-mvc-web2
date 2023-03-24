@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        
+<mapper namespace="mx.capacitarte.rycmvcweb2.persistence.mapper.PreciosMapper">
+
+	<resultMap id="consultarPreciosResultMap" type="mx.capacitarte.rycmvcweb2.VO.PrecioVO" >
+		<result property="idPrecio" column="ID_PRECIO" />
+        <result property="idProducto" column="ID_PRODUCTO" />
+        <result property="descProducto" column="DESC_PRODUCTO" />
+        <result property="fechaInicio" column="FECHA_INICIO" />
+        <result property="precioUnitario" column="PRECIO_UNITARIO" />
+        <result property="vigencia" column="VIGENCIA" />
+        <result property="fechaCreacion" column="FECHA_CRE" />
+        <result property="usuarioCreacion" column="USUARIO_CRE" />
+        <result property="fechaActualizacion" column="FECHA_ACT" />
+        <result property="usuarioActualizacion" column="USUARIO_ACT" />
+	</resultMap>
+
+	<select id="consultarPrecios" resultMap="consultarPreciosResultMap">
+		
+        
+        SELECT 
+        F.FTN_ID_PRECIO AS ID_PRECIO,
+        F.FTN_ID_PRODUCTO AS ID_PRODUCTO,
+        T.FCC_DESC AS DESC_PRODUCTO,  
+        F.FTD_FECHA_INICIO AS FECHA_INICIO, 
+        F.FTN_PRECIO_UNITARTO AS PRECIO_UNITARIO, 
+        F.FCB_VIGENCIA AS VIGENCIA, 
+        F.FCD_FEH_CRE AS FECHA_CRE, 
+        F.FCC_USU_CRE AS USUARIO_CRE,
+        F.FCD_FEH_ACT	AS FECHA_ACT,
+        F.FCC_USU_ACT AS USUARIO_ACT
+        FROM TT_FARM_PRECIOS F
+        INNER JOIN CAT_CATALOGO T
+        ON T.FCN_ID_CAT_CATALOGO = F.FTN_ID_PRODUCTO
+        ORDER BY FTN_ID_PRODUCTO
+        
+       <!--  SELECT 
+        FTN_ID_PRECIO AS ID_PRECIO,
+        FTN_ID_PRODUCTO AS ID_PRODUCTO,
+        FTD_FECHA_INICIO AS FECHA_INICIO, 
+        FTN_PRECIO_UNITARTO AS PRECIO_UNITARIO, 
+        FCB_VIGENCIA AS VIGENCIA, 
+        FCD_FEH_CRE AS FECHA_CRE, 
+        FCC_USU_CRE AS USUARIO_CRE,
+        FCD_FEH_ACT	AS FECHA_ACT,
+        FCC_USU_ACT AS USUARIO_ACT
+        FROM TT_FARM_PRECIOS
+      
+        -->
+        
+
+        
+	</select>
+	
+	<select id="consultarPorIdProductoYNombre" resultMap="consultarPreciosResultMap">
+		
+		SELECT 
+        F.FTN_ID_PRECIO AS ID_PRECIO,
+        F.FTN_ID_PRODUCTO AS ID_PRODUCTO,
+        T.FCC_DESC AS DESC_PRODUCTO,  
+        F.FTD_FECHA_INICIO AS FECHA_INICIO, 
+        F.FTN_PRECIO_UNITARTO AS PRECIO_UNITARIO, 
+        F.FCB_VIGENCIA AS VIGENCIA, 
+        F.FCD_FEH_CRE AS FECHA_CRE, 
+        F.FCC_USU_CRE AS USUARIO_CRE,
+        F.FCD_FEH_ACT	AS FECHA_ACT,
+        F.FCC_USU_ACT AS USUARIO_ACT
+        FROM TT_FARM_PRECIOS F
+        INNER JOIN CAT_CATALOGO T
+        ON T.FCN_ID_CAT_CATALOGO = F.FTN_ID_PRODUCTO
+        <where>
+        <if test="idProducto != null">
+        AND F.FTN_ID_PRODUCTO = #{idProducto} 
+	    </if>
+	    <if test="descProducto != null">
+	    AND T.FCC_DESC LIKE '%' || #{descProducto} || '%'
+	    </if>
+	    </where>
+	</select>
+	 
+	<insert id="agregarPrecio">
+				
+	INSERT
+	INTO TT_FARM_PRECIOS 
+	(FTN_ID_PRECIO, FTN_ID_PRODUCTO, FTD_FECHA_INICIO, FTN_PRECIO_UNITARTO, FCB_VIGENCIA, FCD_FEH_CRE, FCC_USU_CRE)
+	VALUES
+	(FARM_SEQ.NextVal, #{idProducto}, #{fechaInicio},#{precioUnitario}, #{vigencia}, SYSTIMESTAMP, #{usuarioCreacion})
+				
+	</insert>
+	
+	<update id="actualizarPrecio">
+	
+	UPDATE 
+	TT_FARM_PRECIOS
+	SET
+	FTD_FECHA_INICIO =  #{fechaInicio}, 
+	FTN_PRECIO_UNITARTO = #{precioUnitario},
+	FCB_VIGENCIA = #{vigencia}, 
+	FCD_FEH_ACT = SYSTIMESTAMP, 
+	FCC_USU_ACT =  #{usuarioActualizacion}
+	WHERE FTN_ID_PRECIO = #{idPrecio} AND FTN_ID_PRODUCTO = #{idProducto}
+	
+	</update>
+	
+	
+	
+	<delete id="eliminarPrecio">
+	
+	       DELETE FROM TT_FARM_PRECIOS WHERE FTN_ID_PRECIO = #{idPrecio} AND FTN_ID_PRODUCTO = #{idProducto}
+	</delete>
+	
+	<select id="consultarIdGenerado" resultType="int">
+		       
+		        SELECT MAX (FTN_ID_PRECIO) AS ID_MAXIMO FROM TT_FARM_PRECIOS
+	
+	</select>
+
+</mapper>
