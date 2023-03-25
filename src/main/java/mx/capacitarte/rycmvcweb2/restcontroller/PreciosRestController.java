@@ -62,7 +62,7 @@ public class PreciosRestController {
 		
 		List<PrecioVO> preciosVO = new ArrayList<PrecioVO>();
 		
-		preciosVO = preciosService.consultarPorIdProductoYNombre(precioBean.getIdProducto(), precioBean.getDescProducto());
+		preciosVO = preciosService.consultarPorIdProductoYNombre(precioBean.getIdProducto(), precioBean.getDescProducto(), precioBean.getFechaInicio());
 
 		List<PrecioBean> preciosBean = new ArrayList<PrecioBean>();
 		
@@ -73,6 +73,7 @@ public class PreciosRestController {
 			preciosBean.add(precio);
 			
 		 }
+		beanResponse.setFechaInicio(precioBean.getFechaInicio());
 		beanResponse.setProductos(preciosBean);
 		
 		

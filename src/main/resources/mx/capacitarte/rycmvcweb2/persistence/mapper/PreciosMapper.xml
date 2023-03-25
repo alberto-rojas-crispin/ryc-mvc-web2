@@ -56,6 +56,49 @@
 	
 	<select id="consultarPorIdProductoYNombre" resultMap="consultarPreciosResultMap">
 		
+		  WITH RESUMEN AS (
+            SELECT  
+            distinct
+            F.FTN_ID_PRODUCTO AS ID_PRODUCTO, 
+            MAX (F.FTD_FECHA_INICIO) AS FECHA_INICIO
+            FROM TT_FARM_PRECIOS F
+            INNER JOIN CAT_CATALOGO T
+            ON T.FCN_ID_CAT_CATALOGO = F.FTN_ID_PRODUCTO 
+            <where>
+	        <if test="idProducto != null">
+	        AND F.FTN_ID_PRODUCTO = #{idProducto} 
+	        
+		    </if>
+		    <if test="descProducto != null">
+		    AND T.FCC_DESC LIKE '%' || #{descProducto} || '%'
+		    </if>
+		     <if test="fechaInicio != null">
+	        AND  TRUNC(F.FTD_FECHA_INICIO) &lt;= TRUNC(#{fechaInicio})
+	        </if>
+        
+        </where>
+        GROUP BY  F.FTN_ID_PRODUCTO
+        )
+        SELECT 
+        distinct
+        F.FTN_ID_PRECIO AS ID_PRECIO,
+        F.FTN_ID_PRODUCTO AS ID_PRODUCTO,
+        T.FCC_DESC AS DESC_PRODUCTO,  
+        F.FTD_FECHA_INICIO AS FECHA_INICIO, 
+        F.FTN_PRECIO_UNITARTO AS PRECIO_UNITARIO, 
+        F.FCB_VIGENCIA AS VIGENCIA, 
+        F.FCD_FEH_CRE AS FECHA_CRE, 
+        F.FCC_USU_CRE AS USUARIO_CRE,
+        F.FCD_FEH_ACT	AS FECHA_ACT,
+        F.FCC_USU_ACT AS USUARIO_ACT
+        FROM TT_FARM_PRECIOS F
+        INNER JOIN CAT_CATALOGO T
+        ON T.FCN_ID_CAT_CATALOGO = F.FTN_ID_PRODUCTO 
+        INNER JOIN RESUMEN ON RESUMEN.ID_PRODUCTO = F.FTN_ID_PRODUCTO 
+        AND RESUMEN.FECHA_INICIO = F.FTD_FECHA_INICIO
+       
+		
+		 <!--
 		SELECT 
         F.FTN_ID_PRECIO AS ID_PRECIO,
         F.FTN_ID_PRODUCTO AS ID_PRODUCTO,
@@ -77,7 +120,7 @@
 	    <if test="descProducto != null">
 	    AND T.FCC_DESC LIKE '%' || #{descProducto} || '%'
 	    </if>
-	    </where>
+	    </where> -->
 	</select>
 	 
 	<insert id="agregarPrecio">

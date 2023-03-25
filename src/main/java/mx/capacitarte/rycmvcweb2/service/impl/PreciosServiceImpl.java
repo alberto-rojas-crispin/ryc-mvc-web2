@@ -1,5 +1,6 @@
 package mx.capacitarte.rycmvcweb2.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,10 +22,12 @@ PreciosMapper preciosMapper;
 		return preciosMapper.consultarPrecios();
 	}
 	@Override
-		public List<PrecioVO> consultarPorIdProductoYNombre(Integer idProducto, String descProducto) {
+		public List<PrecioVO> consultarPorIdProductoYNombre(Integer idProducto, String descProducto, Date fechaInicio) {
 			// TODO Auto-generated method stub
-			String consulta = "%" + descProducto + "%";
-			return preciosMapper.consultarPorIdProductoYNombre(idProducto, descProducto);
+			if(fechaInicio == null) {
+				fechaInicio = new Date();
+			}
+			return preciosMapper.consultarPorIdProductoYNombre(idProducto, descProducto, fechaInicio);
 		}
 	@Override
 	public Integer agregarPrecio(PrecioVO precioVO) {

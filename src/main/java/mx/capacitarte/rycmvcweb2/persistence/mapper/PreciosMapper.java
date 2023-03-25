@@ -1,5 +1,6 @@
 package mx.capacitarte.rycmvcweb2.persistence.mapper;
 
+import java.util.Date;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -11,7 +12,7 @@ public interface PreciosMapper {
 	
 	public List<PrecioVO> consultarPrecios();
 	
-	public List<PrecioVO> consultarPorIdProductoYNombre(Integer idProducto, String descProducto);
+	public List<PrecioVO> consultarPorIdProductoYNombre(Integer idProducto, String descProducto, Date fechaInicio);
 	
 	public Integer agregarPrecio(PrecioVO precioVO);
 	
