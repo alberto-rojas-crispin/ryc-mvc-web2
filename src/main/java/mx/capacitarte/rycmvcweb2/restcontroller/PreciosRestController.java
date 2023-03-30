@@ -139,7 +139,7 @@ public class PreciosRestController {
 		BeanResponse.setIdProducto(precioBean.getIdProducto());
 		BeanResponse.setEstatusEliminacion(preciosService.eliminarPrecio(precioBean.getIdPrecio(), precioBean.getIdProducto()) == true ? "Se elimino correctamente" : "No existe el registro");
 		
-		
+		  
 		
 		return BeanResponse;
 		
