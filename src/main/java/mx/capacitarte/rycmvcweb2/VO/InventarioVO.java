@@ -11,6 +11,7 @@ public class InventarioVO implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private Integer numeroFolio;
 	private Integer idProducto;
+	private String descProducto;
 	private int cantidad;
 	private Integer idTipoUnidad;
 	private Date caducidadProducto;
@@ -18,6 +19,7 @@ public class InventarioVO implements Serializable{
 	private Double costoTotal;
 	private int idPrecio;
 	private int tipoMovimiento;
+	private String tipoMovimientoDesc;
 	private Boolean vigencia;
 	private String fechaAprobacion;
 	private String usuarioAprobacion;
@@ -29,13 +31,14 @@ public class InventarioVO implements Serializable{
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public InventarioVO(Integer numeroFolio, Integer idProducto, int cantidad, Integer idTipoUnidad, Date caducidadProducto,
-			Double costoUnitario, Double costoTotal, int idPrecio, int tipoMovimiento, Boolean vigencia,
+	public InventarioVO(Integer numeroFolio, Integer idProducto, String descProducto, int cantidad, Integer idTipoUnidad, Date caducidadProducto,
+			Double costoUnitario, Double costoTotal, int idPrecio, int tipoMovimiento, String tipoMovimientoDesc, Boolean vigencia,
 			String fechaAprobacion, String usuarioAprobacion, String fechaCreacion, String usuarioCreacion,
 			String fechaActualizacion, String usuarioActualizacion) {
 		super();
 		this.numeroFolio = numeroFolio;
 		this.idProducto = idProducto;
+		this.descProducto = descProducto;
 		this.cantidad = cantidad;
 		this.idTipoUnidad = idTipoUnidad;
 		this.caducidadProducto = caducidadProducto;
@@ -43,6 +46,7 @@ public class InventarioVO implements Serializable{
 		this.costoTotal = costoTotal;
 		this.idPrecio = idPrecio;
 		this.tipoMovimiento = tipoMovimiento;
+		this.tipoMovimientoDesc = tipoMovimientoDesc;
 		this.vigencia = vigencia;
 		this.fechaAprobacion = fechaAprobacion;
 		this.usuarioAprobacion = usuarioAprobacion;
@@ -147,5 +151,18 @@ public class InventarioVO implements Serializable{
 	public void setUsuarioActualizacion(String usuarioActualizacion) {
 		this.usuarioActualizacion = usuarioActualizacion;
 	}
+	public String getDescProducto() {
+		return descProducto;
+	}
+	public void setDescProducto(String descProducto) {
+		this.descProducto = descProducto;
+	}
+	public String getTipoMovimientoDesc() {
+		return tipoMovimientoDesc;
+	}
+	public void setTipoMovimientoDesc(String tipoMovimientoDesc) {
+		this.tipoMovimientoDesc = tipoMovimientoDesc;
+	}
 
+	
 }

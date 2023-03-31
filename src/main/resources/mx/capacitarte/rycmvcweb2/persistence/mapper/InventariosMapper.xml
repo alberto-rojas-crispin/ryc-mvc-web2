@@ -7,6 +7,7 @@
 	<resultMap id="consultarInventariosResultMap" type="mx.capacitarte.rycmvcweb2.VO.InventarioVO" >
 		<result property="numeroFolio" column="FOLIO" />
         <result property="idProducto" column="ID" />
+        <result property="descProducto" column="VALOR_PRODUCTO" />
         <result property="cantidad" column="CANTIDAD" />
         <result property="idTipoUnidad" column="TIPO_UNIDAD" />
         <result property="caducidadProducto" column="CADUCIDAD" />
@@ -14,6 +15,7 @@
         <result property="costoTotal" column="COSTO_TOTAL" />
         <result property="idPrecio" column="ID_PRECIO" />
         <result property="tipoMovimiento" column="TIPO_MOV" />
+        <result property="tipoMovimientoDesc" column="DESC_PRODUCTO" />
         <result property="vigencia" column="VIGENCIA" />
         <result property="fechaAprobacion" column="FECHA_APROBACION" /> 
         <result property="usuarioAprobacion" column="USUARIO_APROBACION" />
@@ -26,29 +28,42 @@
 	<select id="consultarInventario" resultMap="consultarInventariosResultMap">
 		
         
-               SELECT 
-			    F.FTC_FOLIO AS FOLIO,
-			    F.FTN_ID_PRODUCTO AS ID,
-					T.FCC_VALOR AS VALOR_PRODUCTO,
-			    F.FTN_CANTIDAD AS CANTIDAD,
-			    F.FTN_ID_TIPO_UNIDAD AS TIPO_UNIDAD,
-			    F.CADUCIDAD_PRODUCTO AS CADUCIDAD,
-			    F.COSTO_UNITARIO AS COSTO_UNITARIO,
-			    F.COSTO_TOTAL AS COSTO_TOTAL,
-			    F.FTN_ID_PRECIO AS ID_PRECIO,
-			    F.FTN_TIPO_MOV AS TIPO_MOV,
-					T.FCC_DESC AS DESC_PRODUCTO,
-			    F.FCB_VIGENCIA AS VIGENCIA,
-			    F.FCD_FEH_APROB AS FECHA_APROBACION,
-			    F.FCC_USU_APROB AS USUARIO_APROBACION,
-			    F.FCD_FEH_CRE AS FECHA_CREACION,
-			    F.FCC_USU_CRE AS USUARIO_CREACION,
-			    F.FCD_FEH_ACT AS FECHA_ACTUALIZACION,
-			    F.FCC_USU_ACT AS USUARIO_ACTUALIZACION
-				FROM TT_FARM_INVENTARIO F
-				INNER JOIN CAT_CATALOGO T
-				ON T.FCN_ID_CAT_CATALOGO = F.FTN_ID_PRODUCTO
-				ORDER BY FTN_ID_PRODUCTO
+               		 SELECT 
+					    F.FTC_FOLIO AS FOLIO,
+					    F.FTN_ID_PRODUCTO AS ID,
+						T.FCC_VALOR AS VALOR_PRODUCTO,
+					    F.FTN_CANTIDAD AS CANTIDAD,
+					    F.FTN_ID_TIPO_UNIDAD AS TIPO_UNIDAD,
+					    F.CADUCIDAD_PRODUCTO AS CADUCIDAD,
+					    F.COSTO_UNITARIO AS COSTO_UNITARIO,
+					    F.COSTO_TOTAL AS COSTO_TOTAL,
+					    F.FTN_ID_PRECIO AS ID_PRECIO,
+                        TT.FCC_VALOR AS TIPO_MOV,
+						TT.FCC_DESC AS DESC_PRODUCTO,
+					    F.FCB_VIGENCIA AS VIGENCIA,
+					    F.FCD_FEH_APROB AS FECHA_APROBACION,
+					    F.FCC_USU_APROB AS USUARIO_APROBACION,
+					    F.FCD_FEH_CRE AS FECHA_CREACION,
+					    F.FCC_USU_CRE AS USUARIO_CREACION,
+					    F.FCD_FEH_ACT AS FECHA_ACTUALIZACION,
+					    F.FCC_USU_ACT AS USUARIO_ACTUALIZACION
+					FROM TT_FARM_INVENTARIO F
+						INNER JOIN CAT_CATALOGO T
+							ON T.FCN_ID_CAT_CATALOGO = F.FTN_ID_PRODUCTO
+						INNER JOIN CAT_CATALOGO TT  
+							ON TT.FCC_VALOR = to_char(F.FTN_TIPO_MOV)
+					ORDER BY FTN_ID_PRODUCTO
+        
+	</select>
+		<select id="consultarInventarioTotal" resultMap="consultarInventariosResultMap">
+		
+          SELECT  
+        CAT.FCN_ID_CAT_CATALOGO AS ID,
+		FCC_VALOR AS VALOR_PRODUCTO,
+        SUM(FTN_CANTIDAD) AS CANTIDAD
+        FROM TT_FARM_INVENTARIO FF
+        INNER JOIN CAT_CATALOGO CAT ON CAT.FCN_ID_CAT_CATALOGO = FF.FTN_ID_PRODUCTO
+        GROUP BY FTN_ID_PRODUCTO,CAT.FCN_ID_CAT_CATALOGO, FCC_VALOR
         
 	</select>
 		<select id="consultaPersonalizada" resultMap="consultarInventariosResultMap">

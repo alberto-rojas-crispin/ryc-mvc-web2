@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import mx.capacitarte.rycmvcweb2.VO.InventarioVO;
 import mx.capacitarte.rycmvcweb2.beans.InventarioBean;
+import mx.capacitarte.rycmvcweb2.beans.InventarioBeanController;
 import mx.capacitarte.rycmvcweb2.service.IInventarioService;
 
 @Controller
@@ -32,6 +33,7 @@ public class InventarioController {
 			InventarioBean inventarioBean = new InventarioBean(
 					inventarioVO.getNumeroFolio(),
 					inventarioVO.getIdProducto(),
+					inventarioVO.getDescProducto(),
 					inventarioVO.getCantidad(),
 					inventarioVO.getIdTipoUnidad(),
 					inventarioVO.getCaducidadProducto(),
@@ -39,6 +41,7 @@ public class InventarioController {
 					inventarioVO.getCostoTotal(),
 					inventarioVO.getIdPrecio(),
 					inventarioVO.getTipoMovimiento(),
+					inventarioVO.getTipoMovimientoDesc(),
 					inventarioVO.getVigencia(),
 					inventarioVO.getFechaAprobacion(),
 					inventarioVO.getUsuarioAprobacion(),
@@ -56,4 +59,26 @@ public class InventarioController {
 		
 	}
 
+	
+	@RequestMapping("/consultarInventarioTotal")
+	public String consultaTotal(Model modelo) {
+		
+		List<InventarioVO> inventariosVOList = new ArrayList<InventarioVO>();
+		
+		inventariosVOList = inventarioService.consultarInventarioTotal();
+		
+		List<InventarioBeanController> inventariosTotalesBeanList = new ArrayList<InventarioBeanController>();
+		
+		for (InventarioVO inventarioVO : inventariosVOList) {
+			
+			InventarioBeanController inventarioBeanController = new InventarioBeanController(inventarioVO.getIdProducto(), inventarioVO.getDescProducto(), inventarioVO.getCantidad());
+
+			inventariosTotalesBeanList.add(inventarioBeanController);
+		}
+		modelo.addAttribute("inventariosTotales" , inventariosTotalesBeanList);
+		return "consultarInventarioTotal";
+		
+		
+		
+	}
 }

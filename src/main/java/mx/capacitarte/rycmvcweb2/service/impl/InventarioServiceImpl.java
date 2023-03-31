@@ -56,4 +56,10 @@ public class InventarioServiceImpl implements IInventarioService {
 		return inventariosMapper.consultarFolioGenerado();
 	}
 
+	@Override
+	public List<InventarioVO> consultarInventarioTotal() {
+		// TODO Auto-generated method stub
+		return inventariosMapper.consultarInventarioTotal();
+	}
+
 }

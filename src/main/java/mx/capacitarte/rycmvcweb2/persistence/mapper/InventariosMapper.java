@@ -14,6 +14,9 @@ public interface InventariosMapper {
 
 	public List<InventarioVO> consultarInventario();
 	
+	public List<InventarioVO> consultarInventarioTotal();
+
+	
 	public List<InventarioVO> consultaPersonalizada(Integer numeroFolio, Integer idProducto, Date caducidadProducto);	
 	
 	public Integer agregarInventario(InventarioVO inventarioVO);

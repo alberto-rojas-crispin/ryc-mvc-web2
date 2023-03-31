@@ -43,6 +43,7 @@ public class InventariosRestController {
 			InventarioBean inventarioBean = new InventarioBean(
 					inventarioVO.getNumeroFolio(),
 					inventarioVO.getIdProducto(),
+					inventarioVO.getDescProducto(),
 					inventarioVO.getCantidad(),
 					inventarioVO.getIdTipoUnidad(),
 					inventarioVO.getCaducidadProducto(),
@@ -50,6 +51,7 @@ public class InventariosRestController {
 					inventarioVO.getCostoTotal(),
 					inventarioVO.getIdPrecio(),
 					inventarioVO.getTipoMovimiento(),
+					inventarioVO.getTipoMovimientoDesc(),
 					inventarioVO.getVigencia(),
 					inventarioVO.getFechaAprobacion(),
 					inventarioVO.getUsuarioAprobacion(),
@@ -82,6 +84,7 @@ public class InventariosRestController {
 			InventarioBean inventario = new InventarioBean(
 					inventarioVO.getNumeroFolio(),
 					inventarioVO.getIdProducto(),
+					inventarioVO.getDescProducto(),
 					inventarioVO.getCantidad(),
 					inventarioVO.getIdTipoUnidad(),
 					inventarioVO.getCaducidadProducto(),
@@ -89,6 +92,7 @@ public class InventariosRestController {
 					inventarioVO.getCostoTotal(),
 					inventarioVO.getIdPrecio(),
 					inventarioVO.getTipoMovimiento(),
+					inventarioVO.getTipoMovimientoDesc(),
 					inventarioVO.getVigencia(),
 					inventarioVO.getFechaAprobacion(),
 					inventarioVO.getUsuarioAprobacion(),
