@@ -46,15 +46,10 @@
 			<tr> 
 				<th>numeroFolio</th>
 				<th>idProducto</th>
-				<th>descProducto</th>
 				<th>cantidad</th>
 				<th>idTipoUnidad</th>
-				<th>caducidadProducto</th>
-				<th>costoUnitario</th>
-				<th>costoTotal</th>
 				<th>idPrecio</th>
-				<th>tipoMovimiento</th>
-				<th>tipoMovimientoDesc</th>
+				<th>precioTotal</th>
 				<th>vigencia</th>
 				<th>fechaCreacion</th>
 				<th>usuarioCreacion</th>
@@ -64,22 +59,17 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr th:each="inventario: ${inventarios}">
-				<td th:text=" ${inventario.numeroFolio}" />
-				<td th:text=" ${inventario.idProducto}" />
-				<td th:text=" ${inventario.descProducto}" />
-				<td th:text=" ${inventario.cantidad}" />
-				<td th:text=" ${inventario.idTipoUnidad}" />
-				<td th:text=" ${inventario.caducidadProducto}" />
-				<td th:text=" ${inventario.costoUnitario}" />
-				<td th:text=" ${inventario.costoTotal}" />
-				<td th:text=" ${inventario.idPrecio}" />
-				<td th:text=" ${inventario.tipoMovimiento}" />
-		  <td th:text=" ${inventario.tipoMovimientoDesc}" />
-				<td th:text=" ${inventario.fechaCreacion}" />
-				<td th:text=" ${inventario.usuarioCreacion}" />
-				<td th:text=" ${inventario.fechaActualizacion}" />
-				<td th:text=" ${inventario.usuarioActualizacion}" />
+			<tr th:each="venta: ${ventas}">
+				<td th:text=" ${venta.numeroFolio}" />
+				<td th:text=" ${venta.idProducto}" />
+				<td th:text=" ${venta.cantidad}" />
+				<td th:text=" ${venta.idTipoUnidad}" />
+				<td th:text=" ${venta.idPrecio}" />
+				<td th:text=" ${venta.precioTotal}" />
+				<td th:text=" ${venta.fechaCreacion}" />
+				<td th:text=" ${venta.usuarioCreacion}" />
+				<td th:text=" ${venta.fechaActualizacion}" />
+				<td th:text=" ${venta.usuarioActualizacion}" />
 			</tr>
 
 		</tbody>
