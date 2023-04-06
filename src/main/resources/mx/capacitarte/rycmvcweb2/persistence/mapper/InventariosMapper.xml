@@ -172,5 +172,4 @@ ORDER BY CADUCIDAD_PRODUCTO
 	
 	</select>
 	
- 
 </mapper>

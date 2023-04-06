@@ -10,7 +10,7 @@ import mx.capacitarte.rycmvcweb2.VO.InventarioVO;
 import mx.capacitarte.rycmvcweb2.persistence.mapper.InventariosMapper;
 import mx.capacitarte.rycmvcweb2.service.IInventarioService;
 
-@Service("invenrtarioService")
+@Service("inventarioService")
 public class InventarioServiceImpl implements IInventarioService {
 	
 	@Autowired
