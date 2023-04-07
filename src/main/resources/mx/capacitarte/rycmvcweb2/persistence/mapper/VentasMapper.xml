@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        
+<mapper namespace="mx.capacitarte.rycmvcweb2.persistence.mapper.VentasMapper">
+
+	<resultMap id="consultarVentasResultMap" type="mx.capacitarte.rycmvcweb2.VO.VentaVO" >
+		<result property="numeroFolio" column="FOLIO" />
+        <result property="idProducto" column="ID" />
+        <result property="cantidad" column="CANTIDAD" />
+        <result property="idTipoUnidad" column="TIPO_UNIDAD" />
+        <result property="idPrecio" column="ID_PRECIO" />
+        <result property="precioTotal" column="PRECIO_TOTAL" />
+        <result property="vigencia" column="VIGENCIA" />
+        <result property="fechaCreacion" column="FECHA_CREACION" />
+         <result property="usuarioCreacion" column="USUARIO_CREACION" />
+        <result property="fechaActualizacion" column="FECHA_ACTUALIZACION" />
+        <result property="usuarioActualizacion" column="USUARIO_ACTUALIZACION" />
+	</resultMap>
+
+	<select id="consultar" resultMap="consultarVentasResultMap">
+		
+        
+               		  SELECT 
+					    FTC_FOLIO AS FOLIO,
+					    FTN_ID_PRODUCTO AS ID,
+					    FTN_CANTIDAD AS CANTIDAD,
+					    FTN_ID_TIPO_UNIDAD AS TIPO_UNIDAD,
+                        FTN_ID_PRECIO AS ID_PRECIO,
+					    PRECIO_TOTAL AS PRECIO_TOTAL,
+					    FCB_VIGENCIA AS VIGENCIA,
+					    FCD_FEH_CRE AS FECHA_CREACION,
+					    FCC_USU_CRE AS USUARIO_CREACION,
+					    FCD_FEH_ACT AS FECHA_ACTUALIZACION,
+					    FCC_USU_ACT AS USUARIO_ACTUALIZACION
+					FROM TT_FARM_VENTAS
+						ORDER BY FTC_FOLIO
+        
+	</select>
+	
+	<select id="consultarVentasTotales" resultMap="consultarVentasResultMap">
+		
+        
+               		  SELECT 
+					    FTC_FOLIO AS FOLIO,
+					    FTN_ID_PRODUCTO AS ID,
+					    FTN_CANTIDAD AS CANTIDAD,
+					    FTN_ID_TIPO_UNIDAD AS TIPO_UNIDAD,
+                        FTN_ID_PRECIO AS ID_PRECIO,
+					    PRECIO_TOTAL AS PRECIO_TOTAL,
+					    FCB_VIGENCIA AS VIGENCIA,
+					    FCD_FEH_CRE AS FECHA_CREACION,
+					    FCC_USU_CRE AS USUARIO_CREACION,
+					    FCD_FEH_ACT AS FECHA_ACTUALIZACION,
+					    FCC_USU_ACT AS USUARIO_ACTUALIZACION
+					FROM TT_FARM_VENTAS
+						ORDER BY FTC_FOLIO
+        
+	</select>
+	
+	<!--  
+		<select id="consultarInventarioTotal" resultMap="consultarInventariosResultMap">
+		
+          SELECT  
+        CAT.FCN_ID_CAT_CATALOGO AS ID,
+		FCC_VALOR AS VALOR_PRODUCTO,
+        SUM(FTN_CANTIDAD) AS CANTIDAD
+        FROM TT_FARM_INVENTARIO FF
+        INNER JOIN CAT_CATALOGO CAT ON CAT.FCN_ID_CAT_CATALOGO = FF.FTN_ID_PRODUCTO
+        GROUP BY FTN_ID_PRODUCTO,CAT.FCN_ID_CAT_CATALOGO, FCC_VALOR
+        
+	</select>
+		<select id="consultaPersonalizada" resultMap="consultarInventariosResultMap">
+		
+        
+               SELECT 
+    FTC_FOLIO AS FOLIO,
+    FTN_ID_PRODUCTO AS ID,
+    FTN_CANTIDAD AS CANTIDAD,
+    FTN_ID_TIPO_UNIDAD AS TIPO_UNIDAD,
+    CADUCIDAD_PRODUCTO AS CADUCIDAD,
+    COSTO_UNITARIO AS COSTO_UNITARIO,
+    COSTO_TOTAL AS COSTO_TOTAL,
+    FTN_ID_PRECIO AS ID_PRECIO,
+    FTN_TIPO_MOV AS TIPO_MOV,
+    FCB_VIGENCIA AS VIGENCIA,
+     FCD_FEH_APROB AS FECHA_APROBACION,
+    FCC_USU_APROB AS USUARIO_APROBACION,
+        FCD_FEH_CRE AS FECHA_CREACION,
+    FCC_USU_CRE AS USUARIO_CREACION,
+    FCD_FEH_ACT AS FECHA_ACTUALIZACION,
+    FCC_USU_ACT AS USUARIO_ACTUALIZACION
+FROM TT_FARM_INVENTARIO
+<where>
+	<if test="numeroFolio != null">
+	AND FTC_FOLIO = #{numeroFolio}
+	</if>
+	<if test="idProducto != null">
+	AND FTN_ID_PRODUCTO = #{idProducto}
+	</if>
+	<if test="caducidadProducto != null">
+	AND TRUNC(CADUCIDAD_PRODUCTO) =  TRUNC(#{caducidadProducto})
+	</if>
+</where>
+ORDER BY CADUCIDAD_PRODUCTO
+	</select>
+	
+	<insert id="agregarInventario">
+	
+	INSERT INTO TT_FARM_INVENTARIO (
+    FTC_FOLIO,
+    FTN_ID_PRODUCTO,
+    FTN_CANTIDAD,
+    FTN_ID_TIPO_UNIDAD,
+    CADUCIDAD_PRODUCTO,
+    COSTO_UNITARIO,
+    COSTO_TOTAL,
+    FTN_ID_PRECIO,
+    FTN_TIPO_MOV,
+    FCB_VIGENCIA,
+    FCD_FEH_CRE,
+    FCC_USU_CRE
+) VALUES (
+    FARM_INVENTARIO.NEXTVAL,
+     #{idProducto},
+     #{cantidad},
+     #{idTipoUnidad},
+     #{caducidadProducto},
+     #{costoUnitario},
+     #{costoTotal},
+     #{idPrecio},
+     #{tipoMovimiento},
+     #{vigencia},
+    SYSTIMESTAMP,
+     #{usuarioCreacion}
+)
+	
+	</insert>
+	
+	<update id="actualizarInventario">
+	UPDATE TT_FARM_INVENTARIO
+		SET
+		    FTN_CANTIDAD = #{cantidad},
+		    FTN_ID_TIPO_UNIDAD = #{idTipoUnidad},
+		    CADUCIDAD_PRODUCTO =  #{caducidadProducto}, 
+		    COSTO_UNITARIO = #{costoUnitario},
+		    COSTO_TOTAL = #{costoTotal},
+		    FTN_ID_PRECIO = #{idPrecio},
+		    FTN_TIPO_MOV = #{tipoMovimiento}, 
+		    FCB_VIGENCIA = #{vigencia}, 
+		    FCD_FEH_ACT = SYSTIMESTAMP, 
+		    FCC_USU_ACT = #{usuarioActualizacion}
+		<where>
+		<if test="numeroFolio != null">
+		AND FTC_FOLIO = #{numeroFolio}
+		</if>
+		 
+		<if test="idProducto != null">
+		AND FTN_ID_PRODUCTO =  #{idProducto} 
+		</if>
+	</where> 
+	
+	</update>
+	
+	<delete id="eliminarInventario">
+		
+		DELETE FROM TT_FARM_INVENTARIO  
+		WHERE FTC_FOLIO = #{numeroFolio} 
+
+	</delete>
+	
+	
+	<select id="consultarFolioGenerado" resultType="int">
+		       
+		        SELECT MAX (FTC_FOLIO) AS ID_MAXIMO FROM TT_FARM_INVENTARIO
+	
+	</select>
+	-->
+</mapper>
