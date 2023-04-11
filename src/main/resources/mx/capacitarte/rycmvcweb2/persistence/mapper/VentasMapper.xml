@@ -58,122 +58,97 @@
         
 	</select>
 	
-	<!--  
-		<select id="consultarInventarioTotal" resultMap="consultarInventariosResultMap">
-		
-          SELECT  
-        CAT.FCN_ID_CAT_CATALOGO AS ID,
-		FCC_VALOR AS VALOR_PRODUCTO,
-        SUM(FTN_CANTIDAD) AS CANTIDAD
-        FROM TT_FARM_INVENTARIO FF
-        INNER JOIN CAT_CATALOGO CAT ON CAT.FCN_ID_CAT_CATALOGO = FF.FTN_ID_PRODUCTO
-        GROUP BY FTN_ID_PRODUCTO,CAT.FCN_ID_CAT_CATALOGO, FCC_VALOR
-        
-	</select>
-		<select id="consultaPersonalizada" resultMap="consultarInventariosResultMap">
-		
-        
-               SELECT 
-    FTC_FOLIO AS FOLIO,
-    FTN_ID_PRODUCTO AS ID,
-    FTN_CANTIDAD AS CANTIDAD,
-    FTN_ID_TIPO_UNIDAD AS TIPO_UNIDAD,
-    CADUCIDAD_PRODUCTO AS CADUCIDAD,
-    COSTO_UNITARIO AS COSTO_UNITARIO,
-    COSTO_TOTAL AS COSTO_TOTAL,
-    FTN_ID_PRECIO AS ID_PRECIO,
-    FTN_TIPO_MOV AS TIPO_MOV,
-    FCB_VIGENCIA AS VIGENCIA,
-     FCD_FEH_APROB AS FECHA_APROBACION,
-    FCC_USU_APROB AS USUARIO_APROBACION,
-        FCD_FEH_CRE AS FECHA_CREACION,
-    FCC_USU_CRE AS USUARIO_CREACION,
-    FCD_FEH_ACT AS FECHA_ACTUALIZACION,
-    FCC_USU_ACT AS USUARIO_ACTUALIZACION
-FROM TT_FARM_INVENTARIO
-<where>
-	<if test="numeroFolio != null">
-	AND FTC_FOLIO = #{numeroFolio}
-	</if>
-	<if test="idProducto != null">
-	AND FTN_ID_PRODUCTO = #{idProducto}
-	</if>
-	<if test="caducidadProducto != null">
-	AND TRUNC(CADUCIDAD_PRODUCTO) =  TRUNC(#{caducidadProducto})
-	</if>
-</where>
-ORDER BY CADUCIDAD_PRODUCTO
+	<select id="consultarVentaPersonalizada" resultMap="consultarVentasResultMap">
+	
+	SELECT 
+					    FTC_FOLIO AS FOLIO,
+					    FTN_ID_PRODUCTO AS ID,
+					    FTN_CANTIDAD AS CANTIDAD,
+					    FTN_ID_TIPO_UNIDAD AS TIPO_UNIDAD,
+                        FTN_ID_PRECIO AS ID_PRECIO,
+					    PRECIO_TOTAL AS PRECIO_TOTAL,
+					    FCB_VIGENCIA AS VIGENCIA,
+					    FCD_FEH_CRE AS FECHA_CREACION,
+					    FCC_USU_CRE AS USUARIO_CREACION,
+					    FCD_FEH_ACT AS FECHA_ACTUALIZACION,
+					    FCC_USU_ACT AS USUARIO_ACTUALIZACION
+					FROM TT_FARM_VENTAS
+                    <where> 
+                    <if test="numeroFolio != null">
+                    AND FTC_FOLIO = #{numeroFolio} 
+                    </if>
+                    <if test="idProducto != null">
+                    AND FTN_ID_PRODUCTO = #{idProducto} 
+                    </if>
+                    <if test="vigencia != null">
+                    AND FCB_VIGENCIA = #{vigencia}
+                    </if>
+                    </where>
+						ORDER BY FTC_FOLIO, FTN_ID_PRODUCTO
+	
 	</select>
 	
-	<insert id="agregarInventario">
+	<insert id="agregarVenta">
 	
-	INSERT INTO TT_FARM_INVENTARIO (
-    FTC_FOLIO,
-    FTN_ID_PRODUCTO,
-    FTN_CANTIDAD,
-    FTN_ID_TIPO_UNIDAD,
-    CADUCIDAD_PRODUCTO,
-    COSTO_UNITARIO,
-    COSTO_TOTAL,
-    FTN_ID_PRECIO,
-    FTN_TIPO_MOV,
-    FCB_VIGENCIA,
-    FCD_FEH_CRE,
-    FCC_USU_CRE
-) VALUES (
-    FARM_INVENTARIO.NEXTVAL,
-     #{idProducto},
-     #{cantidad},
-     #{idTipoUnidad},
-     #{caducidadProducto},
-     #{costoUnitario},
-     #{costoTotal},
-     #{idPrecio},
-     #{tipoMovimiento},
-     #{vigencia},
-    SYSTIMESTAMP,
-     #{usuarioCreacion}
-)
+		    INSERT INTO TT_FARM_VENTAS (
+                            FTC_FOLIO,
+                            FTN_ID_PRODUCTO,
+                            FTN_CANTIDAD ,
+                            FTN_ID_TIPO_UNIDAD,
+                            FTN_ID_PRECIO,
+                            PRECIO_TOTAL,
+                            FCB_VIGENCIA,
+                            FCD_FEH_CRE,
+                            FCC_USU_CRE
+                           )
+                        VALUES (
+                            FARM_VENTAS_SEQ.NEXTVAL,
+                            #{idProducto},
+                            #{cantidad},
+                            #{idTipoUnidad},
+                            #{idPrecio},
+                            #{precioTotal},
+                            #{vigencia},
+                            SYSTIMESTAMP,
+                            #{usuarioCreacion}
+                        )
 	
 	</insert>
 	
-	<update id="actualizarInventario">
-	UPDATE TT_FARM_INVENTARIO
-		SET
-		    FTN_CANTIDAD = #{cantidad},
-		    FTN_ID_TIPO_UNIDAD = #{idTipoUnidad},
-		    CADUCIDAD_PRODUCTO =  #{caducidadProducto}, 
-		    COSTO_UNITARIO = #{costoUnitario},
-		    COSTO_TOTAL = #{costoTotal},
-		    FTN_ID_PRECIO = #{idPrecio},
-		    FTN_TIPO_MOV = #{tipoMovimiento}, 
-		    FCB_VIGENCIA = #{vigencia}, 
-		    FCD_FEH_ACT = SYSTIMESTAMP, 
-		    FCC_USU_ACT = #{usuarioActualizacion}
-		<where>
-		<if test="numeroFolio != null">
-		AND FTC_FOLIO = #{numeroFolio}
-		</if>
-		 
-		<if test="idProducto != null">
-		AND FTN_ID_PRODUCTO =  #{idProducto} 
-		</if>
-	</where> 
+	<update id="actualizarVenta">
 	
+					UPDATE TT_FARM_VENTAS
+                        SET
+					    FTN_CANTIDAD = #{cantidad},
+					    FTN_ID_TIPO_UNIDAD = #{idTipoUnidad},
+                        FTN_ID_PRECIO = #{idPrecio},
+					    PRECIO_TOTAL = #{precioTotal},
+					    FCB_VIGENCIA = #{vigencia},
+					    FCD_FEH_ACT = SYSTIMESTAMP,
+					    FCC_USU_ACT = #{usuarioActualizacion}
+					<where>
+						<if test="numeroFolio != null">
+						AND FTC_FOLIO = #{numeroFolio}
+						</if>
+						 
+						<if test="idProducto != null">
+						AND FTN_ID_PRODUCTO =  #{idProducto} 
+						</if>
+					</where> 
+		
 	</update>
 	
-	<delete id="eliminarInventario">
+	<delete id="eliminarVenta">
+	
+		DELETE FROM TT_FARM_VENTAS WHERE FTC_FOLIO = #{numeroFolio}
 		
-		DELETE FROM TT_FARM_INVENTARIO  
-		WHERE FTC_FOLIO = #{numeroFolio} 
-
 	</delete>
 	
-	
+
 	<select id="consultarFolioGenerado" resultType="int">
 		       
-		        SELECT MAX (FTC_FOLIO) AS ID_MAXIMO FROM TT_FARM_INVENTARIO
+		        SELECT MAX (FTC_FOLIO) AS ID_MAXIMO FROM TT_FARM_VENTAS
 	
 	</select>
-	-->
+	
 </mapper>

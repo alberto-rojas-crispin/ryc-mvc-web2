@@ -2,7 +2,7 @@ package mx.capacitarte.rycmvcweb2.beans;
 
 import java.io.Serializable;
 
-public class EliminarInventarioBeanResponse implements Serializable{
+public class EliminarVentaBeanResponse implements Serializable{
 
 	/**
 	 * 
@@ -10,8 +10,8 @@ public class EliminarInventarioBeanResponse implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	private Integer numeroFolio;
-	private String estatusActualizar; //eliminar
-	public EliminarInventarioBeanResponse() {
+	private String estatusEliminar;
+	public EliminarVentaBeanResponse() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -21,11 +21,11 @@ public class EliminarInventarioBeanResponse implements Serializable{
 	public void setNumeroFolio(Integer numeroFolio) {
 		this.numeroFolio = numeroFolio;
 	}
-	public String getEstatusActualizar() {
-		return estatusActualizar;
+	public String getEstatusEliminar() {
+		return estatusEliminar;
 	}
-	public void setEstatusActualizar(String estatusActualizar) {
-		this.estatusActualizar = estatusActualizar;
+	public void setEstatusEliminar(String estatusEliminar) {
+		this.estatusEliminar = estatusEliminar;
 	}
 	
 	
