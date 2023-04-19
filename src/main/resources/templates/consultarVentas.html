@@ -46,8 +46,10 @@
 			<tr> 
 				<th>numeroFolio</th>
 				<th>idProducto</th>
+				<th>descProducto</th>
 				<th>cantidad</th>
 				<th>idTipoUnidad</th>
+				<th>descTipoUnidad</th>
 				<th>idPrecio</th>
 				<th>precioTotal</th>
 				<th>vigencia</th>
@@ -62,8 +64,10 @@
 			<tr th:each="venta: ${ventas}">
 				<td th:text=" ${venta.numeroFolio}" />
 				<td th:text=" ${venta.idProducto}" />
+				<td th:text=" ${venta.descProducto}" />
 				<td th:text=" ${venta.cantidad}" />
 				<td th:text=" ${venta.idTipoUnidad}" />
+				<td th:text=" ${venta.descTipoUnidad}" />
 				<td th:text=" ${venta.idPrecio}" />
 				<td th:text=" ${venta.precioTotal}" />
 				<td th:text=" ${venta.vigencia}" />

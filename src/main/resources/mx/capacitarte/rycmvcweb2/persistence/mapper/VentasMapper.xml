@@ -7,10 +7,12 @@
 	<resultMap id="consultarVentasResultMap" type="mx.capacitarte.rycmvcweb2.VO.VentaVO" >
 		<result property="numeroFolio" column="FOLIO" />
         <result property="idProducto" column="ID" />
+        <result property="descProducto" column="DESC_PRODUCTO" />
         <result property="cantidad" column="CANTIDAD" />
         <result property="idTipoUnidad" column="TIPO_UNIDAD" />
+        <result property="descTipoUnidad" column="DESC_TIPO" />
         <result property="idPrecio" column="ID_PRECIO" />
-        <result property="precioTotal" column="PRECIO_TOTAL" />
+        <result property="precioTotal" column="COSTO_TOTAL" />
         <result property="vigencia" column="VIGENCIA" />
         <result property="fechaCreacion" column="FECHA_CREACION" />
          <result property="usuarioCreacion" column="USUARIO_CREACION" />
@@ -21,74 +23,88 @@
 	<select id="consultar" resultMap="consultarVentasResultMap">
 		
         
-               		  SELECT 
-					    FTC_FOLIO AS FOLIO,
-					    FTN_ID_PRODUCTO AS ID,
-					    FTN_CANTIDAD AS CANTIDAD,
-					    FTN_ID_TIPO_UNIDAD AS TIPO_UNIDAD,
-                        FTN_ID_PRECIO AS ID_PRECIO,
-					    PRECIO_TOTAL AS PRECIO_TOTAL,
-					    FCB_VIGENCIA AS VIGENCIA,
-					    FCD_FEH_CRE AS FECHA_CREACION,
-					    FCC_USU_CRE AS USUARIO_CREACION,
-					    FCD_FEH_ACT AS FECHA_ACTUALIZACION,
-					    FCC_USU_ACT AS USUARIO_ACTUALIZACION
-					FROM TT_FARM_VENTAS
-						ORDER BY FTC_FOLIO
+               		 SELECT 
+					    VENT.FTC_FOLIO AS FOLIO,
+					    VENT.FTN_ID_PRODUCTO AS ID,
+                        INV.FCC_VALOR AS DESC_PRODUCTO,
+					    VENT.FTN_CANTIDAD AS CANTIDAD,
+					    VENT.FTN_ID_TIPO_UNIDAD AS TIPO_UNIDAD,
+                        INV.FCC_DESC AS DESC_TIPO,
+                        VENT.FTN_ID_PRECIO AS ID_PRECIO,
+					    VENT.PRECIO_TOTAL AS COSTO_TOTAL,
+					    VENT.FCB_VIGENCIA AS VIGENCIA,
+					    VENT.FCD_FEH_CRE AS FECHA_CREACION,
+					    VENT.FCC_USU_CRE AS USUARIO_CREACION,
+					    VENT.FCD_FEH_ACT AS FECHA_ACTUALIZACION,
+					    VENT.FCC_USU_ACT AS USUARIO_ACTUALIZACION
+					FROM TT_FARM_VENTAS VENT
+                    INNER JOIN CAT_CATALOGO INV
+                        ON INV.FCN_ID_CAT_CATALOGO = VENT.FTN_ID_PRODUCTO
+						ORDER BY FTC_FOLIO, FTN_ID_PRODUCTO
         
 	</select>
 	
 	<select id="consultarVentasTotales" resultMap="consultarVentasResultMap">
 		
         
-               		  SELECT 
-					    FTC_FOLIO AS FOLIO,
-					    FTN_ID_PRODUCTO AS ID,
-					    FTN_CANTIDAD AS CANTIDAD,
-					    FTN_ID_TIPO_UNIDAD AS TIPO_UNIDAD,
-                        FTN_ID_PRECIO AS ID_PRECIO,
-					    PRECIO_TOTAL AS PRECIO_TOTAL,
-					    FCB_VIGENCIA AS VIGENCIA,
-					    FCD_FEH_CRE AS FECHA_CREACION,
-					    FCC_USU_CRE AS USUARIO_CREACION,
-					    FCD_FEH_ACT AS FECHA_ACTUALIZACION,
-					    FCC_USU_ACT AS USUARIO_ACTUALIZACION
-					FROM TT_FARM_VENTAS
-						ORDER BY FTC_FOLIO
+               		SELECT 
+					    VENT.FTC_FOLIO AS FOLIO,
+					    VENT.FTN_ID_PRODUCTO AS ID,
+                        INV.FCC_VALOR AS DESC_PRODUCTO,
+					    VENT.FTN_CANTIDAD AS CANTIDAD,
+					    VENT.FTN_ID_TIPO_UNIDAD AS TIPO_UNIDAD,
+                        INV.FCC_DESC AS DESC_TIPO,
+                        VENT.FTN_ID_PRECIO AS ID_PRECIO,
+					    VENT.PRECIO_TOTAL AS COSTO_TOTAL,
+					    VENT.FCB_VIGENCIA AS VIGENCIA,
+					    VENT.FCD_FEH_CRE AS FECHA_CREACION,
+					    VENT.FCC_USU_CRE AS USUARIO_CREACION,
+					    VENT.FCD_FEH_ACT AS FECHA_ACTUALIZACION,
+					    VENT.FCC_USU_ACT AS USUARIO_ACTUALIZACION
+					FROM TT_FARM_VENTAS VENT
+                    INNER JOIN CAT_CATALOGO INV
+                        ON INV.FCN_ID_CAT_CATALOGO = VENT.FTN_ID_PRODUCTO
+						ORDER BY FTC_FOLIO, FTN_ID_PRODUCTO
         
 	</select>
 	
 	<select id="consultarVentaPersonalizada" resultMap="consultarVentasResultMap">
 	
 	SELECT 
-					    FTC_FOLIO AS FOLIO,
-					    FTN_ID_PRODUCTO AS ID,
-					    FTN_CANTIDAD AS CANTIDAD,
-					    FTN_ID_TIPO_UNIDAD AS TIPO_UNIDAD,
-                        FTN_ID_PRECIO AS ID_PRECIO,
-					    PRECIO_TOTAL AS PRECIO_TOTAL,
-					    FCB_VIGENCIA AS VIGENCIA,
-					    FCD_FEH_CRE AS FECHA_CREACION,
-					    FCC_USU_CRE AS USUARIO_CREACION,
-					    FCD_FEH_ACT AS FECHA_ACTUALIZACION,
-					    FCC_USU_ACT AS USUARIO_ACTUALIZACION
-					FROM TT_FARM_VENTAS
+					    VENT.FTC_FOLIO AS FOLIO,
+					    VENT.FTN_ID_PRODUCTO AS ID,
+                        INV.FCC_VALOR AS DESC_PRODUCTO,
+					    VENT.FTN_CANTIDAD AS CANTIDAD,
+					    VENT.FTN_ID_TIPO_UNIDAD AS TIPO_UNIDAD,
+                        INV.FCC_DESC AS DESC_TIPO,
+                        VENT.FTN_ID_PRECIO AS ID_PRECIO,
+					    VENT.PRECIO_TOTAL AS COSTO_TOTAL,
+					    VENT.FCB_VIGENCIA AS VIGENCIA,
+					    VENT.FCD_FEH_CRE AS FECHA_CREACION,
+					    VENT.FCC_USU_CRE AS USUARIO_CREACION,
+					    VENT.FCD_FEH_ACT AS FECHA_ACTUALIZACION,
+					    VENT.FCC_USU_ACT AS USUARIO_ACTUALIZACION
+					FROM TT_FARM_VENTAS VENT
+					  INNER JOIN CAT_CATALOGO INV
+                        ON INV.FCN_ID_CAT_CATALOGO = VENT.FTN_ID_PRODUCTO
                     <where> 
                     <if test="numeroFolio != null">
-                    AND FTC_FOLIO = #{numeroFolio} 
+                    AND VENT.FTC_FOLIO = #{numeroFolio} 
                     </if>
                     <if test="idProducto != null">
-                    AND FTN_ID_PRODUCTO = #{idProducto} 
+                    AND VENT.FTN_ID_PRODUCTO = #{idProducto} 
                     </if>
                     <if test="vigencia != null">
-                    AND FCB_VIGENCIA = #{vigencia}
+                    AND VENT.FCB_VIGENCIA = #{vigencia}
                     </if>
                     </where>
-						ORDER BY FTC_FOLIO, FTN_ID_PRODUCTO
+						ORDER BY VENT.FTC_FOLIO
 	
 	</select>
 	
 	<insert id="agregarVenta">
+	
+	
 	
 		    INSERT INTO TT_FARM_VENTAS (
                             FTC_FOLIO,
@@ -115,6 +131,8 @@
 	
 	</insert>
 	
+
+	
 	<update id="actualizarVenta">
 	
 					UPDATE TT_FARM_VENTAS
@@ -126,15 +144,11 @@
 					    FCB_VIGENCIA = #{vigencia},
 					    FCD_FEH_ACT = SYSTIMESTAMP,
 					    FCC_USU_ACT = #{usuarioActualizacion}
-					<where>
-						<if test="numeroFolio != null">
-						AND FTC_FOLIO = #{numeroFolio}
-						</if>
-						 
-						<if test="idProducto != null">
+						WHERE
+						FTC_FOLIO = #{numeroFolio}
 						AND FTN_ID_PRODUCTO =  #{idProducto} 
-						</if>
-					</where> 
+					
+					
 		
 	</update>
 	
@@ -150,5 +164,32 @@
 		        SELECT MAX (FTC_FOLIO) AS ID_MAXIMO FROM TT_FARM_VENTAS
 	
 	</select>
+	
+	<select id="ventaInventario" resultType="int">
+	
+SELECT 
+SUM(FTN_CANTIDAD) 
+FROM TT_FARM_INVENTARIO FF
+        INNER JOIN CAT_CATALOGO CAT 
+        ON CAT.FCN_ID_CAT_CATALOGO = FF.FTN_ID_PRODUCTO
+        WHERE FF.FTN_ID_PRODUCTO = #{idProducto}	
+        
+        
+       
+        	
+	</select>
+	
+	<update id="ventaInventarioCantidad">
+		
+		UPDATE TT_FARM_INVENTARIO
+    SET
+    FTN_CANTIDAD = FTN_CANTIDAD - #{cantidad}
+    WHERE FTN_ID_PRODUCTO = #{idProducto}
+			
+	</update>
+	
+	
+	
+	
 	
 </mapper>

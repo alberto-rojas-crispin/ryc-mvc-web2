@@ -22,4 +22,9 @@ public Integer consultarFolioGenerado();
 	public Boolean actualizarVenta(VentaVO ventaVO);
 	
 	public Boolean eliminarVenta(Integer numeroFolio);
+	
+	public int ventaInventario(int idProducto);
+
+	public void ventaInventarioCantidad(int idProducto, int cantidad);
 }
+

@@ -41,8 +41,29 @@ public class VentasServiceImpl implements IVentasService {
 
 	@Override
 	public Integer agregarVenta(VentaVO ventaVO) {
-		// TODO Auto-generated method stub
+		// TODO Auto-generated method stub -- prmeron verifia 
+
+		int diff = 0;
+		int cantidad = 0;
+		cantidad = ventasMapper.ventaInventario(ventaVO.getIdProducto());
+		System.out.println("LA CANTIDAD EN INVENTARIO ES: " + cantidad);
+		if( cantidad > 0 && ventaVO.getCantidad() > cantidad) {
+			
+			  diff = ventaVO.getCantidad() - cantidad;
+			 
+			 ventaVO.setCantidad(ventaVO.getCantidad() - diff);
+				System.out.println("La cantidad excede el inventario, se asignaron " + ventaVO.getCantidad() + " disponibles");
+
+		}else if (cantidad == 0){
+			System.out.println("No hay en inventario");
+			return 0;
+		}
+		ventasMapper.ventaInventarioCantidad(ventaVO.getIdProducto(),ventaVO.getCantidad());
+		
+		
+		
 		return ventasMapper.agregarVenta(ventaVO);
+	
 	}
 
 	@Override
@@ -56,5 +77,7 @@ public class VentasServiceImpl implements IVentasService {
 		// TODO Auto-generated method stub
 		return ventasMapper.eliminarVenta(numeroFolio);
 	}
+
+	
 
 }

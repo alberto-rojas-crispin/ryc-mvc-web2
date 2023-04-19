@@ -12,8 +12,10 @@ public class VentaBean implements Serializable {
 	
 	private Integer numeroFolio;
 	private Integer idProducto;
+	private String descProducto;
 	private int cantidad;
 	private Integer idTipoUnidad;
+	private String descTipoUnidad;
 	private int idPrecio;
 	private Double precioTotal;
 	private Boolean vigencia;
@@ -25,14 +27,16 @@ public class VentaBean implements Serializable {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public VentaBean(Integer numeroFolio, Integer idProducto, int cantidad, Integer idTipoUnidad, int idPrecio,
+	public VentaBean(Integer numeroFolio, Integer idProducto, String descProducto, int cantidad, Integer idTipoUnidad,String descTipoUnidad, int idPrecio,
 			Double precioTotal, Boolean vigencia, String fechaCreacion, String usuarioCreacion,
 			String fechaActualizacion, String usuarioActualizacion) {
 		super();
 		this.numeroFolio = numeroFolio;
 		this.idProducto = idProducto;
+		this.descProducto = descProducto;
 		this.cantidad = cantidad;
 		this.idTipoUnidad = idTipoUnidad;
+		this.descTipoUnidad = descTipoUnidad;
 		this.idPrecio = idPrecio;
 		this.precioTotal = precioTotal;
 		this.vigencia = vigencia;
@@ -53,6 +57,12 @@ public class VentaBean implements Serializable {
 	public void setIdProducto(Integer idProducto) {
 		this.idProducto = idProducto;
 	}
+	public String getDescProducto() {
+		return descProducto;
+	}
+	public void setDescProducto(String descProducto) {
+		this.descProducto = descProducto;
+	}
 	public int getCantidad() {
 		return cantidad;
 	}
@@ -64,6 +74,12 @@ public class VentaBean implements Serializable {
 	}
 	public void setIdTipoUnidad(Integer idTipoUnidad) {
 		this.idTipoUnidad = idTipoUnidad;
+	}
+	public String getDescTipoUnidad() {
+		return descTipoUnidad;
+	}
+	public void setDescTipoUnidad(String descTipoUnidad) {
+		this.descTipoUnidad = descTipoUnidad;
 	}
 	public int getIdPrecio() {
 		return idPrecio;
@@ -107,6 +123,8 @@ public class VentaBean implements Serializable {
 	public void setUsuarioActualizacion(String usuarioActualizacion) {
 		this.usuarioActualizacion = usuarioActualizacion;
 	}
+	
+
 	
 	
 	

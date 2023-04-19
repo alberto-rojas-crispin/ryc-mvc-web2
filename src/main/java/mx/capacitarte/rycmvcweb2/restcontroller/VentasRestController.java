@@ -42,8 +42,10 @@ public class VentasRestController {
 			VentaBean ventaBean = new VentaBean(
 					ventaVO.getNumeroFolio(),
 					ventaVO.getIdProducto(),
+					ventaVO.getDescProducto(),
 					ventaVO.getCantidad(),
 					ventaVO.getIdTipoUnidad(),
+					ventaVO.getDescTipoUnidad(),
 					ventaVO.getIdPrecio(),
 					ventaVO.getPrecioTotal(),
 					ventaVO.getVigencia(),
@@ -77,8 +79,10 @@ public class VentasRestController {
 			VentaBean venta = new VentaBean(
 					ventaVO.getNumeroFolio(),
 					ventaVO.getIdProducto(),
+					ventaVO.getDescProducto(),
 					ventaVO.getCantidad(),
 					ventaVO.getIdTipoUnidad(),
+					ventaVO.getDescTipoUnidad(),
 					ventaVO.getIdPrecio(),
 					ventaVO.getPrecioTotal(),
 					ventaVO.getVigencia(),
@@ -95,6 +99,13 @@ public class VentasRestController {
 		
 		
 	}
+	
+	/*@PostMapping("/")
+	public InsertarVentaBeanFolioResponse agregarVentaFolio(@RequestBody VentaBean ventaBean) {
+		
+		return null;
+	}
+*/
 	
 	@PostMapping("/")
 	public InsertarVentaBeanResponse agregarVenta(@RequestBody VentaBean ventaBean) {
@@ -127,6 +138,8 @@ public class VentasRestController {
 		
 		VentaVO ventaVO = new VentaVO();
 		
+		ventaVO.setNumeroFolio(ventaBean.getNumeroFolio());
+		ventaVO.setIdProducto(ventaBean.getIdProducto());
 		ventaVO.setCantidad(ventaBean.getCantidad());
 		ventaVO.setIdTipoUnidad(ventaBean.getIdTipoUnidad());
 		ventaVO.setIdPrecio(ventaBean.getIdPrecio());
