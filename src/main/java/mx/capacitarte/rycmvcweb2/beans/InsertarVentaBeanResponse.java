@@ -9,7 +9,7 @@ public class InsertarVentaBeanResponse implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	private Integer folioGenerado;
+	private int folioGenerado;
 
 	private String estatusAgregar;
 
@@ -18,11 +18,11 @@ public class InsertarVentaBeanResponse implements Serializable {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Integer getFolioGenerado() {
+	public int getFolioGenerado() {
 		return folioGenerado;
 	}
 
-	public void setFolioGenerado(Integer folioGenerado) {
+	public void setFolioGenerado(int folioGenerado) {
 		this.folioGenerado = folioGenerado;
 	}
 

@@ -99,13 +99,44 @@ public class VentasRestController {
 		
 		
 	}
+
+	@PostMapping("/folio")
+	public InsertarVentaBeanResponse agregarVentaFolio(@RequestBody List<VentaBean> ventasBean) {
 	
-	/*@PostMapping("/")
-	public InsertarVentaBeanFolioResponse agregarVentaFolio(@RequestBody VentaBean ventaBean) {
+		InsertarVentaBeanResponse beanResponse = new InsertarVentaBeanResponse();
+		List<VentaVO> ventasVO = new ArrayList<VentaVO>();
 		
-		return null;
+		for (VentaBean ventaBean : ventasBean) {
+			VentaVO ventaVO = new VentaVO(
+					ventaBean.getNumeroFolio(),
+					ventaBean.getIdProducto(),
+					ventaBean.getDescProducto(),
+					ventaBean.getCantidad(),
+					ventaBean.getIdTipoUnidad(),
+					ventaBean.getDescTipoUnidad(),
+					ventaBean.getIdPrecio(),
+					ventaBean.getPrecioTotal(),
+					ventaBean.getVigencia(),
+					ventaBean.getFechaCreacion(),
+					ventaBean.getUsuarioCreacion(),
+					ventaBean.getFechaActualizacion(),
+					ventaBean.getUsuarioActualizacion()
+					);
+			
+			ventasVO.add(ventaVO);
+	
+		}
+		
+		beanResponse.setFolioGenerado(ventasService.agregarVentaFolio(ventasVO));
+		beanResponse.setEstatusAgregar(beanResponse.getFolioGenerado() > 0 ? "Se agrego correctamente" : "Hubo un error al agregar");
+
+	
+		return beanResponse;
 	}
-*/
+
+
+
+
 	
 	@PostMapping("/")
 	public InsertarVentaBeanResponse agregarVenta(@RequestBody VentaBean ventaBean) {
@@ -123,10 +154,10 @@ public class VentasRestController {
 		ventaVO.setFechaCreacion(ventaBean.getFechaCreacion());
 		ventaVO.setUsuarioCreacion(ventaBean.getUsuarioCreacion());
 		
-		Integer estatus = ventasService.agregarVenta(ventaVO);
+		Integer folio = ventasService.agregarVenta(ventaVO);
 		
-		beanResponse.setFolioGenerado(estatus > 0 ? ventasService.consultarFolioGenerado() : 0);
-		beanResponse.setEstatusAgregar(estatus > 0 ? "Se agrego correctamente" : "Hubo un error al agregar");
+		beanResponse.setFolioGenerado(folio);
+		beanResponse.setEstatusAgregar(folio > 0 ? "Se agrego correctamente" : "Hubo un error al agregar");
 		
 		return beanResponse;
 	}

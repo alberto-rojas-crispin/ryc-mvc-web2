@@ -3,6 +3,7 @@ package mx.capacitarte.rycmvcweb2.service;
 import java.util.List;
 
 import mx.capacitarte.rycmvcweb2.VO.VentaVO;
+import mx.capacitarte.rycmvcweb2.beans.VentaBean;
 
 public interface IVentasService {
 	
@@ -19,4 +20,6 @@ public interface IVentasService {
 	public Boolean actualizarVenta(VentaVO ventaVO);
 	
 	public Boolean eliminarVenta(Integer numeroFolio);
+
+	public Integer agregarVentaFolio(List<VentaVO> ventasVO);
 }

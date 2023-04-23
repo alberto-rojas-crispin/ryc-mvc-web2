@@ -189,6 +189,33 @@ FROM TT_FARM_INVENTARIO FF
 	</update>
 	
 	
+	<insert id="agregarVentaFolio">
+	
+		
+		    INSERT INTO TT_FARM_VENTAS (
+                            FTC_FOLIO,
+                            FTN_ID_PRODUCTO,
+                            FTN_CANTIDAD ,
+                            FTN_ID_TIPO_UNIDAD,
+                            FTN_ID_PRECIO,
+                            PRECIO_TOTAL,
+                            FCB_VIGENCIA,
+                            FCD_FEH_CRE,
+                            FCC_USU_CRE
+                           )
+                        VALUES (
+                            #{numeroFolio},
+                            #{idProducto},
+                            #{cantidad},
+                            #{idTipoUnidad},
+                            #{idPrecio},
+                            #{precioTotal},
+                            #{vigencia},
+                            SYSTIMESTAMP,
+                            #{usuarioCreacion}
+                        )
+	
+	</insert>
 	
 	
 	

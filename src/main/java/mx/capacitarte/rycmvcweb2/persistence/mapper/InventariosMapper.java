@@ -25,5 +25,7 @@ public interface InventariosMapper {
 	
 	public Boolean eliminarInventario(Integer numeroFolio);
 	
+	public Integer agregarInventarioFolio(InventarioVO inventarioVO);
+	
 	
 }

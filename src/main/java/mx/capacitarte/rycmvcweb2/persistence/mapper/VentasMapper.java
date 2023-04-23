@@ -18,7 +18,9 @@ public Integer consultarFolioGenerado();
 	public List<VentaVO> consultarVentaPersonalizada(Integer numeroFolio, Integer idProducto, Boolean vigencia);
 
 	public Integer agregarVenta(VentaVO ventaVO);
-
+	
+	public Integer agregarVentaFolio(List<VentaVO> ventasVO);
+	
 	public Boolean actualizarVenta(VentaVO ventaVO);
 	
 	public Boolean eliminarVenta(Integer numeroFolio);
@@ -26,5 +28,8 @@ public Integer consultarFolioGenerado();
 	public int ventaInventario(int idProducto);
 
 	public void ventaInventarioCantidad(int idProducto, int cantidad);
+	
+	public Integer agregarVentaFolio(VentaVO ventaVO);
+
 }
 

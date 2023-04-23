@@ -133,6 +133,38 @@ ORDER BY CADUCIDAD_PRODUCTO
 	
 	</insert>
 	
+	<insert id="agregarInventarioFolio">
+	
+	INSERT INTO TT_FARM_INVENTARIO (
+    FTC_FOLIO,
+    FTN_ID_PRODUCTO,
+    FTN_CANTIDAD,
+    FTN_ID_TIPO_UNIDAD,
+    CADUCIDAD_PRODUCTO,
+    COSTO_UNITARIO,
+    COSTO_TOTAL,
+    FTN_ID_PRECIO,
+    FTN_TIPO_MOV,
+    FCB_VIGENCIA,
+    FCD_FEH_CRE,
+    FCC_USU_CRE
+) VALUES (
+    #{numeroFolio},
+     #{idProducto},
+     #{cantidad},
+     #{idTipoUnidad},
+     #{caducidadProducto},
+     #{costoUnitario},
+     #{costoTotal},
+     #{idPrecio},
+     #{tipoMovimiento},
+     #{vigencia},
+    SYSTIMESTAMP,
+     #{usuarioCreacion}
+)
+	
+	</insert>
+	
 	<update id="actualizarInventario">
 	UPDATE TT_FARM_INVENTARIO
 		SET
