@@ -30,6 +30,8 @@ public Integer consultarFolioGenerado();
 	public void ventaInventarioCantidad(int idProducto, int cantidad);
 	
 	public Integer agregarVentaFolio(VentaVO ventaVO);
+	
+	public Double consultarPrecio(VentaVO ventaVO);
 
 }
 

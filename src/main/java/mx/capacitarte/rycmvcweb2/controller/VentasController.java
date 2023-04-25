@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import mx.capacitarte.rycmvcweb2.VO.VentaVO;
 import mx.capacitarte.rycmvcweb2.beans.VentaBean;
+import mx.capacitarte.rycmvcweb2.beans.VentaBeanArticulos;
+import mx.capacitarte.rycmvcweb2.persistence.mapper.VentasMapper;
 import mx.capacitarte.rycmvcweb2.service.IVentasService;
 
 @Controller
@@ -18,6 +20,8 @@ public class VentasController {
 	
 	@Autowired
 	IVentasService ventasService;
+	@Autowired
+	VentasMapper ventasMapper;
 	
 	@RequestMapping("/consultarVentas")
 	public String consulta(Model modelo) {
@@ -52,17 +56,20 @@ public class VentasController {
 	}
 	
 	@RequestMapping("/consultarVentasFolio/{numeroFolio}")
-	public String consulta(Model modelo, @PathVariable int numeroFolio) {
+	public String consulta(Model modelo, @PathVariable int numeroFolio, Model modelo2) {
+		VentaBeanArticulos ventaArticulos = new VentaBeanArticulos();
 		
 		List<VentaVO> ventasVOList = new ArrayList<VentaVO>();
 		
 		ventasVOList = ventasService.consultarVentaPersonalizada(numeroFolio, null, null);
 		
 		List<VentaBean> ventaBeanList = new ArrayList<VentaBean>();
+	
+		int bandera = 0;
 		
 		for (VentaVO ventaVO : ventasVOList) {
 			
-			VentaBean ventaBean = new VentaBean(
+				VentaBean ventaBean = new VentaBean(
 					ventaVO.getNumeroFolio(),
 					ventaVO.getIdProducto(),
 					ventaVO.getDescProducto(),
@@ -78,8 +85,24 @@ public class VentasController {
 					ventaVO.getUsuarioActualizacion()
 					);
 			ventaBeanList.add(ventaBean);
+				
+		
+			
+			if(bandera == 0) {
+				ventaArticulos.setNumeroFolio(ventaVO.getNumeroFolio());
+				ventaArticulos.setFechaCreacion(ventaVO.getFechaCreacion());
+				ventaArticulos.setPrecioTotal(ventasMapper.consultarPrecio(ventaVO));
+				ventaArticulos.setUsuarioCreacion(ventaVO.getUsuarioCreacion());
+				
+				bandera = 1;
+			}
+			
+			
 		}
 		modelo.addAttribute("ventas" , ventaBeanList);
+		modelo2.addAttribute("ventasPrecio", ventaArticulos);
+		
+		
 		return "consultarVentasFolio";
 	}
 }

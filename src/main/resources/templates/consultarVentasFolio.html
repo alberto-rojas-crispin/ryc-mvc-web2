@@ -13,7 +13,7 @@
 <table class="styled-table container">
 
 <thead>
-			<tr th:each="venta: ${ventas}"> 
+			<tr th:each="venta: ${ventasPrecio}"> 
 				<b>Numero de Folio : </b><r th:text=" ${venta.numeroFolio}" />
 				<br>
 				<b>Fecha Venta : </b> <r th:text=" ${venta.fechaCreacion}" />
@@ -26,7 +26,6 @@
 				<th>Id_Producto</th>
 				<th>Desc_Producto</th>
 				<th>Precio</th>
-				<th>Precio_Total</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -34,7 +33,6 @@
 				<td th:text=" ${venta.cantidad}" />
 				<td th:text=" ${venta.idProducto}" />
 				<td th:text=" ${venta.descProducto}" />
-				<td th:text=" ${venta.idPrecio}" />
 				<td th:text=" ${venta.precioTotal}" />
 			</tr>
 			
@@ -49,13 +47,13 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr th:each="venta: ${ventas}" >
+			<tr th:each="venta: ${ventasPrecio}" >
 				<td th:text=" ${venta.precioTotal}" />
 			</tr>
 			
 		</tbody>
 	</table>
-	<tr th:each="venta: ${ventas}"> 
+	<tr th:each="venta: ${ventasPrecio}"> 
 				Atendio:   <r th:text=" ${venta.usuarioCreacion}" />
 			</tr>
 

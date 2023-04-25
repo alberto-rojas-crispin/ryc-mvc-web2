@@ -20,6 +20,7 @@
         <result property="usuarioActualizacion" column="USUARIO_ACTUALIZACION" />
 	</resultMap>
 
+
 	<select id="consultar" resultMap="consultarVentasResultMap">
 		
         
@@ -42,6 +43,16 @@
                         ON INV.FCN_ID_CAT_CATALOGO = VENT.FTN_ID_PRODUCTO
 						ORDER BY FTC_FOLIO, FTN_ID_PRODUCTO
         
+	
+	</select>
+	
+	<select id="consultarPrecio" resultType="Double">
+		
+        
+               		 SELECT 
+    SUM(PRECIO_TOTAL) AS COSTO_TOTAL
+    FROM TT_FARM_VENTAS
+    WHERE FTC_FOLIO = #{numeroFolio}
 	</select>
 	
 	<select id="consultarVentasTotales" resultMap="consultarVentasResultMap">
