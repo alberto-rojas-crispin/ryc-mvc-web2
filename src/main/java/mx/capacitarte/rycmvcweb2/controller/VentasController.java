@@ -1,6 +1,7 @@
 package mx.capacitarte.rycmvcweb2.controller;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -93,14 +94,14 @@ public class VentasController {
 				ventaArticulos.setFechaCreacion(ventaVO.getFechaCreacion());
 				ventaArticulos.setPrecioTotal(ventasMapper.consultarPrecio(ventaVO));
 				ventaArticulos.setUsuarioCreacion(ventaVO.getUsuarioCreacion());
-				
 				bandera = 1;
 			}
 			
 			
 		}
 		modelo.addAttribute("ventas" , ventaBeanList);
-		modelo2.addAttribute("ventasPrecio", ventaArticulos);
+		modelo.addAttribute("ventasPrecio", ventaArticulos);
+		modelo.addAttribute("fechaActual", new Date());
 		
 		
 		return "consultarVentasFolio";

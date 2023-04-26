@@ -13,6 +13,11 @@
 <table class="styled-table container">
 
 <thead>
+
+			<tr> 
+				<b>Fecha Actual : </b><r th:text=" ${fechaActual}" />
+			</tr>
+<br>
 			<tr th:each="venta: ${ventasPrecio}"> 
 				<b>Numero de Folio : </b><r th:text=" ${venta.numeroFolio}" />
 				<br>
