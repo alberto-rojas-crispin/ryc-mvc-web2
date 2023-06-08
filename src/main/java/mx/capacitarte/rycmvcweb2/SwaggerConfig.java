@@ -27,6 +27,8 @@ public class SwaggerConfig {
 				;
 	}
 	
+	
+	
 	private ApiInfo getApiInfo() {
 		return new ApiInfo(
 				"Service API",
